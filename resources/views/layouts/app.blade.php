@@ -2,7 +2,7 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-        <title>MessageBoard</title>
+        <title>tasklist</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     </head>
@@ -26,15 +26,17 @@
                 </div>
             </nav>
         </header>
-        {{--ナビゲーションバー --}}
-        @include('commons.navbar')
         
+      
         
         <div class="container">
-            {{--エラーメッセージ --}}
-            @include('commmons.error_messages')
             
+            {{--エラーメッセージ --}}
+            @include('commons.error_messages')
+            
+            @yield('status')
             @yield('content')
+            
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

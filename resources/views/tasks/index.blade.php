@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 
 <!-- ここにページ毎のコンテンツを書く -->
@@ -10,7 +11,7 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>ステイタス</th>
+                    <th>ステータス</th>
                     <th>タスク</th>
                 </tr>
             </thead>
