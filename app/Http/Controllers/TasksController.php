@@ -14,7 +14,17 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $data = [];
+        if(\Auth::check()){//認証済みユーザの場合
+            //認証済みユーザの取得
+            $user = \Auth::user();
+            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+            $data = [
+                'user' => $user,
+                'tasks' => $tasks,
+                ];
+        }
         $tasks = Task::all();
         
         return view('tasks.index',['tasks' => $tasks,]);
@@ -45,13 +55,12 @@ class TasksController extends Controller
             'status' =>'required|max:10',
             'content' => 'required|max:255',
         ]);
+          //認証済みユーザー（閲覧者）の投稿として作成（リクエストされた値を元に作成）
+          $request->user()->tasks()->create([
+              'content' => $request->content,
+              'status' => $request->status,
+              ]);
         
-         // タスクを作成
-        $task = new Task;
-        $task->status = $request->status;
-        $task->content = $request->content;
-        $task->save();
-
         // トップページへリダイレクトさせる
         return redirect('/');
     }
@@ -127,8 +136,9 @@ class TasksController extends Controller
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
         // メッセージを削除
-        $task->delete();
-
+        if(\Auth::id() === $task->user_id) {
+            $task->delete();
+        }
         // トップページへリダイレクトさせる
         return redirect('/');
     }
