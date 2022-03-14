@@ -83,8 +83,8 @@ class TasksController extends Controller
             ]);
         }
 
-        // 前のURLへリダイレクトさせる
-        return back();
+       // トップページへリダイレクトさせる
+        return redirect('/');
         
     }
 
@@ -107,8 +107,8 @@ class TasksController extends Controller
             ]);
         }
 
-        // 前のURLへリダイレクトさせる
-        return back();
+        // トップページへリダイレクトさせる
+            return redirect('/');
     }
 
     /**
